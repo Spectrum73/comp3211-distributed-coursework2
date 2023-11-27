@@ -31,11 +31,12 @@ def remove_fake_data(connection : pyodbc.Connection):
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    dataWriteBands : list[int] = [1, 5, 10, 20, 50, 100, 1000]
+    dataWriteBands : list[int] = [1, 5, 10, 20, 50, 100, 150, 250]
     connection = get_db_connection()
 
     x_axis = dataWriteBands
     y_axis = []
+    #y_axis = dataWriteBands
 
     for i in range(len(dataWriteBands)):
         time_taken = write_n_sensors(dataWriteBands[i], connection)
@@ -46,9 +47,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     plt.title('Database Performance')
     plt.xlabel('Sensors generated and written')
     plt.ylabel('Time taken')
-    imgName = "performance_graph.png"
-    plt.savefig(imgName)
-    img = Image.open(imgName)
+    #plt.savefig(imgName)
+    buf = io.BytesIO()
+    plt.gcf().savefig(buf, format='PNG')
+    buf.seek(0);
+    img = Image.open(buf)
     img_byte_arr = io.BytesIO()
     img.save(img_byte_arr, format='PNG')
     img_byte_arr = img_byte_arr.getvalue()

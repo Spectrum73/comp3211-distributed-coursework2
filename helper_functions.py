@@ -9,7 +9,7 @@ from dataclasses import dataclass
 import azure.functions as func
 
 NbrSensors = 20
-SqlConnectionString = "Driver={ODBC Driver 18 for SQL Server};Server=tcp:corin-server.database.windows.net,1433;Database=dist-sys-cwk2-db;Uid=Corin;Pwd=.Password123;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+SqlConnectionString = "Driver={ODBC Driver 18 for SQL Server};Server=tcp:corin-server.database.windows.net,1433;Database=dist-sys-cwk2-db;Uid=Corin;Pwd=.Password123;Encrypt=yes;TrustServerCertificate=no;"
 
 @dataclass
 class Sensor:
